@@ -1,5 +1,6 @@
 import { PostDetail } from "@/components/PostDetail";
 
-export default function PostPage({ params }: { params: { slug: string } }) {
-  return <PostDetail slug={params.slug} />;
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  return <PostDetail slug={slug} />;
 }
