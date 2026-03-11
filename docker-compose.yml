@@ -32,12 +32,13 @@ services:
         condition: service_healthy
 
   web:
-    build: ./web
-    ports:
+      web:
+      build: ./web
+      ports:
       - "3000:3000"
-    environment:
-      NEXT_PUBLIC_GRAPHQL_URL: http://api:3001/graphql
-    depends_on:
+      environment:
+      NEXT_PUBLIC_GRAPHQL_URL: http://localhost:3001/graphql  # <-- change api to localhost
+      depends_on:
       - api
 
 volumes:
