@@ -1,14 +1,20 @@
 default: &default
-  adapter: mysql2
+  adapter: trilogy
   encoding: utf8mb4
   pool: 5
   username: <%= ENV.fetch("DB_USER", "root") %>
   password: <%= ENV.fetch("DB_PASSWORD", "") %>
   host: <%= ENV.fetch("DB_HOST", "127.0.0.1") %>
   port: <%= ENV.fetch("DB_PORT", 3306) %>
-  ssl_mode: disabled
-  sslca: false
 
 development:
   <<: *default
   database: <%= ENV.fetch("DB_NAME", "blog_development") %>
+
+test:
+  <<: *default
+  database: blog_test
+
+production:
+  <<: *default
+  database: blog_production

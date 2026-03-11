@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "~> 3.3"
 
 gem "rails", "~> 7.2"
-gem "mysql2", "~> 0.5"
+gem "trilogy"
 gem "puma", "~> 6.0"
 gem "graphql", "~> 2.3"
 gem "rack-cors"

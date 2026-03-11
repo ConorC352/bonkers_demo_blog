@@ -1,8 +1,6 @@
-version: "3.9"
 services:
   mysql:
-    image: mysql:8
-    command: --tls-version=''
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: blog_development
@@ -11,10 +9,11 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-ppassword"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-ppassword"]
       interval: 5s
       timeout: 5s
-      retries: 10
+      retries: 15
+      start_period: 30s
 
   api:
     build: .
@@ -28,6 +27,11 @@ services:
       DB_NAME: blog_development
       DB_USER: root
       DB_PASSWORD: password
+      MYSQL_SSL_CA: ""
+      LIBMYSQL_ENABLE_CLEARTEXT_PLUGIN: 1
+      MARIADB_OPT_SSL_VERIFY_SERVER_CERT: "0"
+      SSL_CERT_FILE: ""
+      OPENSSL_CONF: /dev/null
     depends_on:
       mysql:
         condition: service_healthy

@@ -1,5 +1,5 @@
 FROM ruby:3.3-alpine AS base
-RUN apk add --no-cache build-base mysql-dev nodejs bash yaml-dev
+RUN apk add --no-cache build-base nodejs bash yaml-dev openssl-dev
 
 WORKDIR /app
 
