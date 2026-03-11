@@ -1,0 +1,20 @@
+/.bundle
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/storage/*
+!/storage/.keep
+.byebug_history
+
+# Node
+/web/node_modules/
+/web/.next/
+
+# Env
+.env
+.env.local
+.env*.local
+
+# OS
+.DS_Store
