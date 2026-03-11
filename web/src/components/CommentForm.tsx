@@ -13,7 +13,7 @@ export function CommentForm({ postId, onCommentAdded }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!authorName.trim() || !body.trim()) return;
-    await addComment({ variables: { input: { postId, body, authorName } } });
+    await addComment({ variables: { postId, body, authorName } });
     setAuthorName(""); setBody("");
     onCommentAdded();
   };
