@@ -15,3 +15,4 @@ end
 group :development do
   gem "annotate"
 end
+gem "tzinfo-data"
