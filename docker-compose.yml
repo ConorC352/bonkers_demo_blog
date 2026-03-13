@@ -1,3 +1,4 @@
+
 services:
   mysql:
     image: mysql:5.7
@@ -35,6 +36,27 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+
+  jobs:
+    build: .
+    command: bash -c "bundle exec rails db:migrate && bundle exec rails solid_queue:start"
+    environment:
+      RAILS_ENV: development
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: blog_development
+      DB_USER: root
+      DB_PASSWORD: password
+      MYSQL_SSL_CA: ""
+      LIBMYSQL_ENABLE_CLEARTEXT_PLUGIN: 1
+      MARIADB_OPT_SSL_VERIFY_SERVER_CERT: "0"
+      SSL_CERT_FILE: ""
+      OPENSSL_CONF: /dev/null
+    depends_on:
+      mysql:
+        condition: service_healthy
+      api:
+        condition: service_started
 
   web:
     build: ./web

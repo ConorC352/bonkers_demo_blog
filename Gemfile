@@ -7,6 +7,7 @@ gem "trilogy"
 gem "puma", "~> 6.0"
 gem "graphql", "~> 2.3"
 gem "rack-cors"
+gem "solid_queue"
 
 group :development, :test do
   gem "debug"
