@@ -1,7 +1,7 @@
-
 services:
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: blog_development
@@ -39,7 +39,7 @@ services:
 
   jobs:
     build: .
-    command: bash -c "bundle exec rails db:migrate && bundle exec rails solid_queue:start"
+    command: bash -c "bundle exec rails db:migrate && bundle exec rails runner \"load Rails.root.join('db/queue_schema.rb')\" && bundle exec rails solid_queue:start"
     environment:
       RAILS_ENV: development
       DB_HOST: mysql
