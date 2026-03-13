@@ -15,5 +15,6 @@ end
 
 group :development do
   gem "annotate"
+  gem "graphiql-rails"
 end
 gem "tzinfo-data"
