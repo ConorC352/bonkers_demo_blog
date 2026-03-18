@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-jobs
+  namespace: blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-jobs
+  template:
+    metadata:
+      labels:
+        app: blog-jobs
+    spec:
+      containers:
+        - name: blog-jobs
+          image: blog-api:latest
+          imagePullPolicy: IfNotPresent
+          command: ["bash", "-c", "bundle exec rails runner \"ActiveRecord::Base.connection.table_exists?('solid_queue_jobs') || load(Rails.root.join('db/queue_schema.rb'))\" && bundle exec rails solid_queue:start"]
+          envFrom:
+            - configMapRef:
+                name: api-config
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: rails-secret
+                  key: SECRET_KEY_BASE
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

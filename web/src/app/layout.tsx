@@ -3,7 +3,7 @@ import "./globals.css";
 import { ApolloWrapper } from "@/components/ApolloWrapper";
 
 export const metadata: Metadata = {
-  title: "Dev Blog",
+  title: "Bonkers.ie Dev Blog",
   description: "A demo blog built with Next.js, GraphQL and Kubernetes",
 };
 
